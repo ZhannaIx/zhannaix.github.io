@@ -1,7 +1,7 @@
 const projectsData = {
     ru: [
         {
-            icon: "🎵",
+            image: "images/conducting-system.jpg",
             tags: ["XR Experience", "Unity", "Azure Kinect", "AI Roadmap"],
             title: "XR Conducting System",
             desc: "Концепция и архитектура иммерсивной XR-системы, где жест становится инструментом, а пользователь — дирижёром. От идеи до прототипа: жестовая механика, сценарий и AI-стратегия развития.",
@@ -9,7 +9,7 @@ const projectsData = {
             role: "Роль: XR Experience Architect"
         },
         {
-            icon: "🏛️",
+            image: "images/konigsberg-castle.jpg",
             tags: ["VR Heritage", "Коммерческий запуск", "Product Owner"],
             title: "VR Замок Кёнигсберг",
             desc: "Полный цикл продуктовой разработки: стратегия, архитектура, монетизация. Гибридный пайплайн, синхронный мультиплеер, ROI 150%+ в первый квартал.",
@@ -17,7 +17,7 @@ const projectsData = {
             role: "Роль: XR Product Owner"
         },
         {
-            icon: "🎨",
+            image: "images/russian-artists.jpg",
             tags: ["GenAI", "Projection Mapping", "Культурный лендмарк"],
             title: "VR/XR Шедевры русских художников",
             desc: "Концептуальная архитектура городской иммерсивной проекции с GenAI-анимацией полотен. Доктрина «ожившей живописи», 100 000+ зрителей.",
@@ -25,7 +25,7 @@ const projectsData = {
             role: "Роль: XR Concept Architect"
         },
         {
-            icon: "🧠",
+            image: "images/ai-avatar.jpg",
             tags: ["AI Avatar", "EdTech", "Digital Health", "IEEE"],
             title: "Адаптивный AI-аватар для EQ",
             desc: "Концепция и архитектура AI-системы эмоционального зеркалирования для детей. Взаимодействие через mimics и self-recognition.",
@@ -33,7 +33,7 @@ const projectsData = {
             role: "Роль: AI Interaction Architect"
         },
         {
-            icon: "🏰",
+            image: "images/house-of-kant.jpg",
             tags: ["VR/AR", "Культурное наследие", "Нарративный дизайн"],
             title: "Дом Канта: Загадка разума",
             desc: "Архитектура двухплатформенной системы: VR-квест + AR-гид. Кантианская философия в интерактивной механике и пространственном нарративе.",
@@ -41,7 +41,7 @@ const projectsData = {
             role: "Роль: XR Concept Architect"
         },
         {
-            icon: "🎓",
+            image: "images/vr-4rooms.jpg",
             tags: ["VR Education", "Геймификация", "Product Owner"],
             title: "VR Quest «4 Rooms»",
             desc: "Модульная архитектура VR-оценки знаний. Фреймворк «предмет как комната», геймификация учебных целей. Пилот валидирован.",
@@ -51,7 +51,7 @@ const projectsData = {
     ],
     en: [
         {
-            icon: "🎵",
+            image: "images/conducting-system.jpg",
             tags: ["XR Experience", "Unity", "Azure Kinect", "AI Roadmap"],
             title: "XR Conducting System",
             desc: "Concept and architecture of an immersive XR system where gesture becomes the instrument. From idea to prototype: interaction logic, scenario design, and AI evolution strategy.",
@@ -59,7 +59,7 @@ const projectsData = {
             role: "Role: XR Experience Architect"
         },
         {
-            icon: "🏛️",
+            image: "images/konigsberg-castle.jpg",
             tags: ["VR Heritage", "Commercial Launch", "Product Owner"],
             title: "VR Königsberg Royal Castle",
             desc: "End-to-end product development: strategy, system architecture, monetization. Hybrid pipeline, synchronous multiplayer, 150%+ ROI in Q1.",
@@ -67,7 +67,7 @@ const projectsData = {
             role: "Role: XR Product Owner"
         },
         {
-            icon: "🎨",
+            image: "images/russian-artists.jpg",
             tags: ["GenAI", "Projection Mapping", "Cultural Landmark"],
             title: "Masterpieces of Russian Artists",
             desc: "Conceptual architecture for a city-scale immersive projection with GenAI-animated paintings. 'Living Painting' doctrine. 100,000+ visitors.",
@@ -75,7 +75,7 @@ const projectsData = {
             role: "Role: XR Concept Architect"
         },
         {
-            icon: "🧠",
+            image: "images/ai-avatar.jpg",
             tags: ["AI Avatar", "EdTech", "Digital Health", "IEEE"],
             title: "Adaptive AI Avatar for EQ",
             desc: "Concept and architecture of an AI-driven emotional mirroring system for children. Mimicry-based interaction and self-recognition.",
@@ -83,7 +83,7 @@ const projectsData = {
             role: "Role: AI Interaction Architect"
         },
         {
-            icon: "🏰",
+            image: "images/house-of-kant.jpg",
             tags: ["VR/AR", "Cultural Heritage", "Narrative Design"],
             title: "The House of Kant: A Riddle of Reason",
             desc: "Architecture of a dual-platform system: VR quest + AR city guide. Kantian philosophy embodied into spatial narrative and interactive mechanics.",
@@ -91,7 +91,7 @@ const projectsData = {
             role: "Role: XR Concept Architect"
         },
         {
-            icon: "🎓",
+            image: "images/vr-4rooms.jpg",
             tags: ["VR Education", "Gamification", "Product Owner"],
             title: "VR Quest \"4 Rooms\"",
             desc: "Modular VR assessment architecture. \"Subject-as-Room\" framework, gamified learning objectives. Pilot validated.",
@@ -110,9 +110,7 @@ function renderProjects(lang) {
     grid.innerHTML = projects.map(p => `
         <article class="work-card">
             <div class="work-card-image">
-                <div class="work-placeholder">
-                    <span class="placeholder-icon">${p.icon}</span>
-                </div>
+                <img src="${p.image}" alt="${p.title}" class="work-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\"work-placeholder\"><span class=\"placeholder-icon\">🖼️</span></div>'">
             </div>
             <div class="work-card-content">
                 <div class="work-tags">
