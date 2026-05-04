@@ -441,16 +441,10 @@ section {
     font-weight: 500;
 }
 
-.work-link {
-    color: var(--accent-purple);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.work-link:hover {
-    color: var(--accent-pink);
+.work-role {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-style: italic;
 }
 
 /* === ОБО МНЕ === */
