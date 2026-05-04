@@ -102,6 +102,7 @@ const projectsData = {
 };
 
 let currentLang = 'ru';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxoZCzNRQo8dFfOddq-DYVePMU8P7vgCfyHF1Z79HL2Y_UBNC90lDNvpIFGMXM8gjHw/exec';
 
 function renderProjects(lang) {
     const grid = document.getElementById('workGrid');
@@ -164,14 +165,44 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+// Форма с отправкой в Google Таблицу
+document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const messages = {
-        ru: 'Спасибо! Я свяжусь с вами в ближайшее время 🚀',
-        en: 'Thank you! I\'ll get back to you soon 🚀'
+    
+    const formData = {
+        name: document.getElementById('name').value,
+        contact: document.getElementById('contact-info').value,
+        message: document.getElementById('message').value
     };
-    alert(messages[currentLang]);
-    this.reset();
+    
+    const messages = {
+        ru: { sending: 'Отправка...', success: 'Спасибо! Я свяжусь с вами в ближайшее время 🚀', error: 'Ошибка отправки. Напишите мне в Telegram: @Joanna_IXR' },
+        en: { sending: 'Sending...', success: 'Thank you! I\'ll get back to you soon 🚀', error: 'Error sending. Contact me on Telegram: @Joanna_IXR' }
+    };
+    
+    const btn = this.querySelector('button[type="submit"]');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = messages[currentLang].sending;
+    btn.disabled = true;
+    
+    try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        alert(messages[currentLang].success);
+        this.reset();
+    } catch (error) {
+        alert(messages[currentLang].error);
+    } finally {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+    }
 });
 
 const observer = new IntersectionObserver((entries) => {
