@@ -16,11 +16,23 @@
 <footer class="foot wrap"><span><span lang="ru">© 2026 Жанна Иксанова — Архитектор инноваций</span><span lang="en">© 2026 Zhanna Iksanova — Innovation Architect</span></span><a href="#top" id="back-top"><span lang="ru">Наверх</span><span lang="en">Back to top</span></a></footer></section><script>
 (()=>{
 const body=document.body,langBtns=[...document.querySelectorAll('[data-language]')];
+function fitText(){
+ const groups={};
+ document.querySelectorAll('[data-fit]').forEach(el=>{el.style.fontSize='';if(el.clientWidth>0)(groups[el.dataset.fit]=groups[el.dataset.fit]||[]).push(el);});
+ Object.values(groups).forEach(els=>{
+  const base=parseFloat(getComputedStyle(els[0]).fontSize);let size=base;
+  els.forEach(el=>{if(el.scrollWidth>el.clientWidth+1)size=Math.min(size,base*el.clientWidth/el.scrollWidth*0.97);});
+  if(size<base)els.forEach(el=>el.style.fontSize=size+'px');
+ });
+}
+let fitTimer;window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(fitText,120);});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitText);
 function setLanguage(lang){lang=lang==='en'?'en':'ru';body.dataset.lang=lang;document.documentElement.lang=lang;
  langBtns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.language===lang)));
  document.querySelectorAll('[data-ph-ru]').forEach(el=>el.placeholder=el.dataset[lang==='ru'?'phRu':'phEn']);
  if(body.dataset.titleRu)document.title=body.dataset[lang==='ru'?'titleRu':'titleEn'];
- try{localStorage.setItem('lang',lang)}catch(e){}}
+ try{localStorage.setItem('lang',lang)}catch(e){}
+ fitText();}
 langBtns.forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.language)));
 let saved='ru';try{saved=localStorage.getItem('lang')||'ru'}catch(e){}setLanguage(saved);
 const toggle=document.querySelector('.menu-toggle'),links=document.querySelector('.nav-links');
@@ -34,6 +46,7 @@ if(views.length){
   if(v){views.forEach(x=>x.hidden=x!==v);}else if(!views.some(x=>!x.hidden)){views.forEach((x,i)=>x.hidden=i!==0);}
   const cur=views.find(x=>!x.hidden).dataset.view;
   document.querySelectorAll('[data-nav]').forEach(a=>a.toggleAttribute('aria-current',(a.dataset.nav==='cases'&&cur!=='home')||(a.dataset.nav==='about'&&id==='about')));
+  fitText();
   if(v&&v.dataset.view===id){window.scrollTo(0,0);}else if(el){el.scrollIntoView();}
  }
  window.addEventListener('hashchange',route);route();
